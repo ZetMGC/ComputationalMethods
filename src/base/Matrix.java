@@ -1,5 +1,6 @@
 package base;
 import exceptions.EmptyMatrixException;
+import org.apache.commons.math.linear.SingularMatrixException;
 
 public class Matrix {
     public static void print(double[] solution) throws EmptyMatrixException {
@@ -25,7 +26,6 @@ public class Matrix {
         }
     }
 
-
     public static void print(double[][] matrix, double[] vals) {
         System.out.println("\nСистама ЛУ");
         for(int i = 0; i < matrix.length; i++) {
@@ -34,5 +34,54 @@ public class Matrix {
             }
             System.out.print("= " + vals[i] + "\n");
         }
+    }
+
+    // Вычисление обратной матрицы
+    public static double[][] invertMatrix(double[][] matrix) throws SingularMatrixException {
+        int n = matrix.length;
+        double[][] identity = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            identity[i][i] = 1.0;
+        }
+        double[][] inverse = matrix.clone();
+        double[][] result = new double[n][n];
+
+        for (int i = 0; i < n; i++) {
+            double max = inverse[i][i];
+            int maxRow = i;
+            for (int j = i + 1; j < n; j++) {
+                if (inverse[j][i] > max) {
+                    max = inverse[j][i];
+                    maxRow = j;
+                }
+            }
+            if (maxRow != i) {
+                double[] temp = inverse[i];
+                inverse[i] = inverse[maxRow];
+                inverse[maxRow] = temp;
+                temp = identity[i];
+                identity[i] = identity[maxRow];
+                identity[maxRow] = temp;
+            }
+            double pivot = inverse[i][i];
+            if (pivot == 0.0) {
+                throw new SingularMatrixException();
+            }
+            for (int j = 0; j < n; j++) {
+                inverse[i][j] /= pivot;
+                identity[i][j] /= pivot;
+            }
+            for (int k = 0; k < n; k++) {
+                if (k != i) {
+                    double factor = inverse[k][i];
+                    for (int j = 0; j < n; j++) {
+                        inverse[k][j] -= factor * inverse[i][j];
+                        identity[k][j] -= factor * identity[i][j];
+                    }
+                }
+            }
+        }
+
+        return identity;
     }
 }

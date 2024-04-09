@@ -7,6 +7,14 @@ The project on **computational methods**, which currently includes:
    - Gaussian noise method
    - The least squares method
 
-### Examples
+## Examples
 
+### Gauss
+**Gauss Method**
+```java
+LinearEquationSystem les = Reader.readEquations("src/Gauss/equations.txt");
+double[][] A = les.getMatrixA();
+double[] B = les.getVectorB();
+les.setSolution(solve(A, B));
+```
 > v2.1

@@ -36,6 +36,9 @@ public class GaussianElimination {
         return solution;
     }
 
+    /**
+     * Example
+     * */
     public static void main(String[] args) throws IOException {
         LinearEquationSystem les = Reader.readEquations("src/Gauss/equations.txt");
 

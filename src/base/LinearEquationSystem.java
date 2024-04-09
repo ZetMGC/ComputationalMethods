@@ -12,6 +12,11 @@ public class LinearEquationSystem {
     private double[] vectorB;
     private double[] solution;
 
+    public interface Function {
+        double[] value(double[] x);
+        double[][] jacobian(double[] x);
+    }
+
     public LinearEquationSystem(double[][] matrixA, double[] vectorB) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
