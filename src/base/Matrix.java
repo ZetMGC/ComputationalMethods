@@ -1,8 +1,38 @@
 package base;
+
 import exceptions.EmptyMatrixException;
 import org.apache.commons.math.linear.SingularMatrixException;
 
 public class Matrix {
+    /**
+     * Вычисляет якобиан функции численным методом конечных разностей.
+     *
+     * @param function функция, для которой необходимо вычислить якобиан
+     * @param x точка, в которой вычисляется якобиан
+     * @param h шаг для численного дифференцирования
+     * @return матрица якобиана функции в заданной точке
+     */
+    public static double[][] calculateJacobian(LinearEquationSystem.Function function, double[] x, double h) {
+        int n = x.length;
+        int m = function.value(x).length;
+        double[][] jacobian = new double[m][n];
+
+        // Рассчитываем каждую частную производную численным методом конечных разностей
+        for (int i = 0; i < n; i++) {
+            double[] xPlusH = x.clone();
+            double[] xMinusH = x.clone();
+            xPlusH[i] += h;
+            xMinusH[i] -= h;
+            double[] fPlusH = function.value(xPlusH);
+            double[] fMinusH = function.value(xMinusH);
+            for (int j = 0; j < m; j++) {
+                jacobian[j][i] = (fPlusH[j] - fMinusH[j]) / (2 * h);
+            }
+        }
+
+        return jacobian;
+    }
+
     public static void print(double[] solution) throws EmptyMatrixException {
         if (solution.length == 0 || solution == null)
             throw new EmptyMatrixException();

@@ -8,14 +8,32 @@ import exceptions.EmptyMatrixException;
  * Класс системы линейных уравнений.
  */
 public class LinearEquationSystem {
+
+    /**
+     * Интерфейс, представляющий функцию и ее якобиан.
+     */
+    public interface Function {
+
+        /**
+         * Вычисляет значение функции в заданной точке.
+         *
+         * @param x массив значений переменных функции
+         * @return массив значений функции в заданной точке
+         */
+        double[] value(double[] x);
+
+        /**
+         * Вычисляет якобиан функции в заданной точке.
+         *
+         * @param x массив значений переменных функции
+         * @return матрица якобиана функции в заданной точке
+         */
+        double[][] jacobian(double[] x);
+    }
+
     private double[][] matrixA;
     private double[] vectorB;
     private double[] solution;
-
-    public interface Function {
-        double[] value(double[] x);
-        double[][] jacobian(double[] x);
-    }
 
     public LinearEquationSystem(double[][] matrixA, double[] vectorB) {
         this.matrixA = matrixA;

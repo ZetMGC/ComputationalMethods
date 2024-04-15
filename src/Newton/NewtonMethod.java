@@ -55,17 +55,14 @@ public class NewtonMethod {
         // Пример функции
         LinearEquationSystem.Function function = new LinearEquationSystem.Function() {
             public double[] value(double[] x) {
-                return new double[] {
-                        x[0] * x[0] + x[1] * x[1] - 1,
-                        Math.exp(x[0]) + x[1] - Math.E
+                return new double[]{
+                        0.5 * Math.cos(x[1]) + 0.3 - x[0],
+                        Math.sin(x[0] - 0.5) - 1.5 - x[1]
                 };
             }
 
             public double[][] jacobian(double[] x) {
-                return new double[][] {
-                        {2 * x[0], 2 * x[1]},
-                        {Math.exp(x[0]), 1}
-                };
+                return Matrix.calculateJacobian(this, x, 1e-6); // Метод calculateJacobian для вычисления якобиана
             }
         };
 
