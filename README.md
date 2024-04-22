@@ -11,6 +11,9 @@ The project on **computational methods**, which currently includes:
 
 ### Gauss
 **Gauss Method**
+1. A system of linear equations is being created.
+2. Separate variables are created for the matrix of values and the vector.
+3. The ``` solve ``` method is called and its result is recorded in the ``` solution ``` field
 ```java
 LinearEquationSystem les = Reader.readEquations("src/Gauss/equations.txt");
 double[][] A = les.getMatrixA();
