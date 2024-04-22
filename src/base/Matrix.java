@@ -66,7 +66,13 @@ public class Matrix {
         }
     }
 
-    // Вычисление обратной матрицы
+    /**
+     * Вычисляет обратную матрицу методом Гаусса-Жордана.
+     *
+     * @param matrix исходная матрица, которую нужно инвертировать
+     * @return обратная матрица для исходной
+     * @throws SingularMatrixException если матрица является сингулярной (вырожденной)
+     */
     public static double[][] invertMatrix(double[][] matrix) throws SingularMatrixException {
         int n = matrix.length;
         double[][] identity = new double[n][n];

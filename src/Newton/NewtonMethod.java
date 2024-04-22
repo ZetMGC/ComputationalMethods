@@ -26,26 +26,23 @@ public class NewtonMethod {
      */
     public static double[] solve(LinearEquationSystem.Function function, double[] initialGuess) {
         double[] x = initialGuess.clone();
-        int iter = 0;
-        while (iter < MAX_ITERATIONS) {
+        for (int iter = 0; iter < MAX_ITERATIONS; iter++) {
             double[] f = function.value(x);
             double[][] jacobian = function.jacobian(x);
             double[][] inverseJacobian;
             try {
                 inverseJacobian = Matrix.invertMatrix(jacobian);
             } catch (SingularMatrixException e) {
-                // Если матрица сингулярная, используем другой метод для аппроксимации обратной матрицы
+                // Если матрица выраженная, используется другой метод для аппроксимации обратной матрицы
                 inverseJacobian = Approximation.approximateInverseJacobian(jacobian, 2);
             }
             double[] step = Vec.matrixVectorProduct(inverseJacobian, f);
             for (int i = 0; i < x.length; i++) {
                 x[i] -= step[i];
             }
-            double norm = Vec.vectorNorm(step);
-            if (norm < TOLERANCE) {
+            if (Vec.vectorNorm(step) < TOLERANCE) {
                 break; // Критерий сходимости
             }
-            iter++;
         }
         return x;
     }
