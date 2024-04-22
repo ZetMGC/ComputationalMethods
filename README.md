@@ -7,6 +7,8 @@ The project on **computational methods**, which currently includes:
    - Gaussian noise method
    - The least squares method
    - The ```GraphHandler``` class allows you to output a graph of a function, noise, and a smoothed graph.
+4. A method for numerical integration of a function over a given interval using quadrature formulas.
+5. Adams Method
 
 ## Examples
 
@@ -21,4 +23,12 @@ double[][] A = les.getMatrixA();
 double[] B = les.getVectorB();
 les.setSolution(solve(A, B));
 ```
-> v2.1
+**Gauss Noise**
+
+Allows you to add Gaussian noise to the original data.
+```java
+SmoothingParameters smoothingParameters = Reader.readDataSmoothing("src/Smoothing/input1.txt");
+double[] noisyData = GaussNoise.addGaussianNoise(smoothingParameters.y, 0.0, 2);
+```
+
+> v3.1
