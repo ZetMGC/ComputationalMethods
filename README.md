@@ -32,6 +32,7 @@ double[] noisyData = GaussNoise.addGaussianNoise(smoothingParameters.y, 0.0, 2);
 ```
 
 **Gauss Quadrature**
+
 A method for calculating integration nodes and corresponding weights for the Gaussian quadrature method on each of the sub-sections of the partition of the initial integration interval [a, b].
 ```java
 double[] nodes = new double[n * s];
