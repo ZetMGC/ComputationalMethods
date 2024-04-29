@@ -114,4 +114,58 @@ public class GraphHandler {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    public static void displayGraph(double[] xData, double[] yData) {
+        // Создание серии для исходных данных
+        XYSeries series = new XYSeries("Заданная функция");
+
+        // Заполнение серий данными
+        for (int i = 0; i < xData.length; i++) {
+            series.add(xData[i], yData[i]);
+        }
+
+        // Добавление серий в коллекцию
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(series);
+
+        // Создание графика
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "График функции",
+                "X",
+                "Y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        // Получение объекта XYPlot
+        XYPlot plot = (XYPlot) chart.getPlot();
+
+        // Установка белого фона для графика
+        plot.setBackgroundPaint(Color.WHITE);
+
+        // Установка черного цвета для сетки
+        plot.setRangeGridlinePaint(Color.BLACK);
+        plot.setDomainGridlinePaint(Color.BLACK);
+
+        // Создание панели для отображения графика
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Создание чекбокса для переключения видимости графиков
+        JCheckBox seriesCheckbox = new JCheckBox("Заданная функция", true);
+
+        // Устанавливаем предпочтительный размер для панели графика
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+
+        // Создание окна для отображения графика
+        JFrame frame = new JFrame("График функции");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add(chartPanel, BorderLayout.CENTER);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
 }

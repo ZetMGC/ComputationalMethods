@@ -1,5 +1,7 @@
 package NumericalIntegration;
 
+import base.GraphHandler;
+
 import java.util.function.Function;
 
 public class AdamsMethod {
@@ -27,18 +29,26 @@ public class AdamsMethod {
         // Пример использования метода для решения дифференциального уравнения y' = -2y
         double yn = 1; // Начальное значение функции
         double h = 0.001; // Шаг интегрирования
-        int steps = 1000; // Количество шагов интегрирования
+        int steps = 2000; // Количество шагов интегрирования
         double t = 0; // Начальное значение времени
 
         // Функция для вычисления значения производной
         Function<Double, Double> f = y -> -2 * y;
 
+        double [] xs = new double[steps];
+        double [] ys = new double[steps];
+
+
         // Интегрирование с использованием четырехшагового неявного метода Адамса
         for (int i = 0; i < steps; i++) {
+            ys[i] = yn;
+            xs[i] = t;
             if (i / 50 == 0)
                 System.out.println("y(" + t + ") = " + yn);
             yn = adamsFourthOrder(yn, h, f);
             t += h; // Увеличиваем значение времени на шаг h
         }
+
+        GraphHandler.displayGraph(xs, ys);
     }
 }
